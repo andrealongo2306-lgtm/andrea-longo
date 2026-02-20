@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrea Longo — Senior Java Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d0d; --surface: #141414; --surface2: #1a1a1a;
+      --border: #242424; --text: #e8e8e8; --muted: #666;
+      --accent: #c8f065; --accent2: #4af0c4; --heading: #f5f5f5;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; font-size: 15px; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,13,13,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 60px;
+    }
+    .nav-logo { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.08em; text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+    .nav-links a { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin-left: 16px; }
+    .lang-btn { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; padding: 5px 10px; background: transparent; color: var(--muted); border: none; cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: var(--accent); color: #0d0d0d; font-weight: 500; }
+    .lang-btn:not(.active):hover { color: var(--text); background: var(--surface2); }
+
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 48px 80px; max-width: 900px; margin: 0 auto; }
+    .hero-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(48px, 8vw, 88px); font-weight: 400; color: var(--heading); line-height: 1.05; margin-bottom: 8px; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-subtitle { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 40px; margin-top: 16px; }
+    .hero-bio { max-width: 560px; font-size: 16px; color: #999; line-height: 1.8; margin-bottom: 48px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--accent); color: #0d0d0d; font-weight: 500; }
+    .btn-primary:hover { background: #d8ff70; transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .availability { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 0.06em; margin-top: 24px; }
+    .availability::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    section { max-width: 900px; margin: 0 auto; padding: 100px 48px; border-top: 1px solid var(--border); }
+    .section-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 48px; display: flex; align-items: center; gap: 16px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .skill-group { background: var(--surface); padding: 28px; }
+    .skill-group h3 { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font-family: 'DM Mono', monospace; font-size: 11px; padding: 4px 10px; background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: 2px; letter-spacing: 0.02em; }
+    .tag.highlight { border-color: var(--accent); color: var(--accent); }
+
+    .experience-list { display: flex; flex-direction: column; }
+    .exp-item { display: grid; grid-template-columns: 140px 1fr; gap: 32px; padding: 40px 0; border-bottom: 1px solid var(--border); }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; padding-top: 4px; }
+    .exp-content h3 { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: var(--heading); margin-bottom: 4px; }
+    .exp-company { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 12px; }
+    .exp-desc { font-size: 14px; color: #888; line-height: 1.8; margin-bottom: 16px; }
+    .exp-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .highlights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .highlight-card { background: var(--surface); padding: 36px 32px; transition: background 0.2s; }
+    .highlight-card:hover { background: var(--surface2); }
+    .highlight-icon { font-size: 24px; margin-bottom: 16px; }
+    .highlight-card h3 { font-family: 'DM Serif Display', serif; font-size: 18px; font-weight: 400; color: var(--heading); margin-bottom: 10px; }
+    .highlight-card p { font-size: 13px; color: #777; line-height: 1.7; }
+
+    .cert-list { display: flex; flex-direction: column; }
+    .cert-item { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .cert-name { font-size: 15px; color: var(--text); }
+    .cert-issuer { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.06em; }
+    .cert-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .contact-item { background: var(--surface); padding: 32px; }
+    .contact-item h3 { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .contact-item a, .contact-item p { font-size: 15px; color: var(--text); text-decoration: none; transition: color 0.2s; }
+    .contact-item a:hover { color: var(--accent); }
+
+    footer { text-align: center; padding: 40px 48px; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* i18n */
+    .t { display: none; }
+    .lang-it .t-it { display: block; }
+    .lang-it .t-it.inline { display: inline; }
+    .lang-it .t-it.iflex { display: inline-flex; }
+    .lang-en .t-en { display: block; }
+    .lang-en .t-en.inline { display: inline; }
+    .lang-en .t-en.iflex { display: inline-flex; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 12px; }
+      .nav-links li.hide-mobile { display: none; }
+      .hero, section { padding-left: 20px; padding-right: 20px; }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="lang-it">
+
+<nav>
+  <a href="#" class="nav-logo">AL</a>
+  <ul class="nav-links">
+    <li class="hide-mobile"><a href="#skills" data-it="Competenze" data-en="Skills">Competenze</a></li>
+    <li class="hide-mobile"><a href="#experience" data-it="Esperienza" data-en="Experience">Esperienza</a></li>
+    <li class="hide-mobile"><a href="#highlights" data-it="Highlights" data-en="Highlights">Highlights</a></li>
+    <li class="hide-mobile"><a href="#education" data-it="Formazione" data-en="Education">Formazione</a></li>
+    <li class="hide-mobile"><a href="#contacts" data-it="Contatti" data-en="Contacts">Contatti</a></li>
+    <li>
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-it" onclick="setLang('it')">IT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-label t t-it">Senior Java Developer — Freelance</p>
+  <p class="hero-label t t-en">Senior Java Developer — Freelance</p>
+  <h1>Andrea<br><em>Longo</em></h1>
+  <p class="hero-subtitle">Java · Spring Boot · Angular</p>
+  <p class="hero-bio t t-it">Sviluppatore backend e frontend con quasi 10 anni di esperienza su progetti enterprise. Specializzato in architetture Spring Boot, integrazione di sistemi complessi e sviluppo full stack. Operativo come freelance (P.IVA), disponibile per nuove collaborazioni.</p>
+  <p class="hero-bio t t-en">Backend and frontend developer with nearly 10 years of experience on enterprise projects. Specialized in Spring Boot architectures, complex system integration and full stack development. Operating as a freelance consultant, open to new collaborations.</p>
+  <div class="hero-actions">
+    <a href="andrea-longo.pdf" download class="btn btn-primary">
+      <span class="t t-it inline">↓ Scarica CV PDF</span>
+      <span class="t t-en inline">↓ Download CV PDF</span>
+    </a>
+    <a href="#contacts" class="btn btn-secondary">
+      <span class="t t-it inline">Contattami</span>
+      <span class="t t-en inline">Contact me</span>
+    </a>
+    <a href="https://www.linkedin.com/in/" target="_blank" class="btn btn-secondary">LinkedIn ↗</a>
+  </div>
+  <div class="availability t t-it iflex">Disponibile per nuove collaborazioni</div>
+  <div class="availability t t-en iflex">Open to new collaborations</div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label t t-it">Competenze</div>
+  <div class="section-label t t-en">Skills</div>
+  <div class="skills-grid fade-in">
+    <div class="skill-group">
+      <h3>Backend</h3>
+      <div class="skill-tags">
+        <span class="tag highlight">Java 1.8 / 21</span><span class="tag highlight">Spring Boot</span>
+        <span class="tag highlight">Spring Security</span><span class="tag">Spring Batch</span>
+        <span class="tag">JPA / Hibernate</span><span class="tag">REST / SOAP</span>
+        <span class="tag">ActiveMQ</span><span class="tag">Microservices</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Frontend</h3>
+      <div class="skill-tags">
+        <span class="tag highlight">Angular 8/9</span><span class="tag">JavaScript</span>
+        <span class="tag">TypeScript</span><span class="tag">jQuery</span>
+        <span class="tag">HTML5 / CSS3</span><span class="tag">Struts 2</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Database</h3>
+      <div class="skill-tags">
+        <span class="tag highlight">MongoDB</span><span class="tag">Oracle DB</span>
+        <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">SQL Server</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>DevOps & Tools</h3>
+      <div class="skill-tags">
+        <span class="tag">GIT</span><span class="tag">Maven</span><span class="tag">Jenkins</span>
+        <span class="tag">Docker</span><span class="tag">Ansible</span><span class="tag">Kibana</span>
+        <span class="tag">Rundeck</span><span class="tag">GlassFish</span><span class="tag">Tomcat</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label t t-it">Esperienza</div>
+  <div class="section-label t t-en">Experience</div>
+  <div class="experience-list">
+
+    <div class="exp-item fade-in">
+      <div class="exp-date">
+        <span class="t t-it inline">11/2023 — Attuale</span>
+        <span class="t t-en inline">11/2023 — Present</span>
+      </div>
+      <div class="exp-content">
+        <h3>Backend &amp; Frontend Developer</h3>
+        <div class="exp-company">LIS Holding — Cosenza (Freelance)</div>
+        <p class="exp-desc t t-it">Analisi e sviluppo di nuove funzionalità per il sistema "Web Console GLS". Implementazione da zero di servizi Spring Boot a supporto di sistemi esterni come i terminali delle ricevitorie. Configurazione, monitoraggio, reportistica avanzata e gestione di campagne promozionali.</p>
+        <p class="exp-desc t t-en">Analysis and development of new features for the "Web Console GLS" system. From-scratch implementation of Spring Boot services supporting external systems such as lottery terminals. Configuration, monitoring, advanced reporting and promotional campaign management.</p>
+        <div class="exp-tech"><span class="tag">Java 1.8 / 21</span><span class="tag">Spring Boot</span><span class="tag">Spring Security</span><span class="tag">Angular 8</span><span class="tag">Oracle DB</span><span class="tag">ActiveMQ</span><span class="tag">Ansible</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-date">06/2021 — 12/2025</div>
+      <div class="exp-content">
+        <h3>Software Developer</h3>
+        <div class="exp-company">Luxottica — Milano (Freelance)</div>
+        <p class="exp-desc t t-it">Sviluppo e ottimizzazione di TAB (The Appointment Book), piattaforma enterprise per la prenotazione di visite oculistiche per oltre 2.000 cliniche. Gestione dei flussi di prenotazione, reportistica avanzata e Application Maintenance dell'intero ecosistema.</p>
+        <p class="exp-desc t t-en">Development and optimization of TAB (The Appointment Book), an enterprise platform managing eye care appointment booking for over 2,000 clinics. Booking flow management, advanced reporting and Application Maintenance for the entire ecosystem.</p>
+        <div class="exp-tech"><span class="tag">Java 1.8</span><span class="tag">Spring Boot</span><span class="tag">MongoDB</span><span class="tag">MySQL</span><span class="tag">Struts 2</span><span class="tag">Jenkins</span><span class="tag">Kibana</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-date">04/2020 — 02/2021</div>
+      <div class="exp-content">
+        <h3>Backend &amp; Frontend Developer</h3>
+        <div class="exp-company">Besidetech — CRIF</div>
+        <p class="exp-desc t t-it">Sviluppo di NEOS (New Evaluation Open Suite), prodotto proprietario CRIF basato sull'accesso ai dati dei conti di pagamento. Realizzazione grafica basata su widget customizzati per ogni banca.</p>
+        <p class="exp-desc t t-en">Development of NEOS (New Evaluation Open Suite), CRIF's proprietary product based on access to payment account data. UI implementation with custom widgets tailored per bank.</p>
+        <div class="exp-tech"><span class="tag">Java 1.8</span><span class="tag">Angular 9</span><span class="tag">Spring Batch</span><span class="tag">JPA</span><span class="tag">JUnit</span><span class="tag">Mockito</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-date">09/2019 — 03/2020</div>
+      <div class="exp-content">
+        <h3>Software Developer</h3>
+        <div class="exp-company">Besidetech — Nesea · Roma</div>
+        <p class="exp-desc t t-it">Sviluppo di soluzioni web per il Lotto online con focus sull'integrazione di sistemi esterni, garantendo comunicazione affidabile tra piattaforme ed efficienza dei flussi dati.</p>
+        <p class="exp-desc t t-en">Web solution development for the online Lottery platform, focused on external system integration ensuring reliable cross-platform communication and data flow efficiency.</p>
+        <div class="exp-tech"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Hibernate</span><span class="tag">JMeter</span><span class="tag">Jenkins</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-date">05/2018 — 04/2019</div>
+      <div class="exp-content">
+        <h3>Backend &amp; Frontend Developer</h3>
+        <div class="exp-company">Netcom Group — Almaviva · Roma</div>
+        <p class="exp-desc t t-it">Restyling e implementazione di interfacce SAP in stile Fiori per web e mobile. Sviluppo e customizzazione di componenti SAP Portal con logica MVC.</p>
+        <p class="exp-desc t t-en">Restyling and implementation of SAP Fiori-style interfaces for web and mobile. Development and customization of SAP Portal components with MVC logic.</p>
+        <div class="exp-tech"><span class="tag">Java</span><span class="tag">SAP NetWeaver</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span><span class="tag">SASS</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-date">03/2017 — 04/2018</div>
+      <div class="exp-content">
+        <h3>IT Consultant</h3>
+        <div class="exp-company">CSP S.p.A — Tecnositaf · Torino</div>
+        <p class="exp-desc t t-it">Sviluppo e bug fixing di applicazioni enterprise. Progettazione di test automatici con Selenium e integrazione continua con Jenkins.</p>
+        <p class="exp-desc t t-en">Enterprise application development and bug fixing. Automated test design with Selenium and continuous integration with Jenkins.</p>
+        <div class="exp-tech"><span class="tag">Java</span><span class="tag">Selenium</span><span class="tag">Docker</span><span class="tag">Jenkins</span><span class="tag">Hibernate</span><span class="tag">PostgreSQL</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section id="highlights">
+  <div class="section-label">Highlights</div>
+  <div class="highlights-grid">
+    <div class="highlight-card fade-in">
+      <div class="highlight-icon">⚡</div>
+      <h3>Enterprise Backend</h3>
+      <p class="t t-it">Quasi 10 anni di sviluppo su sistemi enterprise complessi con Java e Spring Boot, da architetture monolitiche a microservizi.</p>
+      <p class="t t-en">Nearly 10 years of development on complex enterprise systems with Java and Spring Boot, from monolithic architectures to microservices.</p>
+    </div>
+    <div class="highlight-card fade-in">
+      <div class="highlight-icon">🔗</div>
+      <h3>System Integration</h3>
+      <p class="t t-it">Esperienza consolidata nell'integrazione di sistemi esterni tramite REST, SOAP, ActiveMQ e connettori custom su piattaforme ad alto traffico.</p>
+      <p class="t t-en">Solid experience integrating external systems via REST, SOAP, ActiveMQ and custom connectors on high-traffic platforms.</p>
+    </div>
+    <div class="highlight-card fade-in">
+      <div class="highlight-icon">🍃</div>
+      <h3>MongoDB Certified</h3>
+      <p class="t t-it">Certificazioni MongoDB SI Associate e SI Architect conseguite nel 2025. Esperienza reale su progetti con dataset complessi e architetture NoSQL.</p>
+      <p class="t t-en">MongoDB SI Associate and SI Architect certifications achieved in 2025. Real-world experience on projects with complex datasets and NoSQL architectures.</p>
+    </div>
+    <div class="highlight-card fade-in">
+      <div class="highlight-icon">🖥️</div>
+      <h3>Full Stack</h3>
+      <p class="t t-it">Competenze sia backend (Java, Spring) che frontend (Angular), con capacità di seguire l'intero ciclo di sviluppo di una feature.</p>
+      <p class="t t-en">Proficiency in both backend (Java, Spring) and frontend (Angular), capable of owning the full development lifecycle of a feature.</p>
+    </div>
+    <div class="highlight-card fade-in">
+      <div class="highlight-icon">🏢</div>
+      <h3 class="t t-it">Clienti Enterprise</h3>
+      <h3 class="t t-en">Enterprise Clients</h3>
+      <p class="t t-it">Esperienza su progetti per Luxottica, CRIF, Almaviva, Lottomatica — contesti ad alta complessità e standard qualitativi elevati.</p>
+      <p class="t t-en">Experience on projects for Luxottica, CRIF, Almaviva, Lottomatica — high-complexity environments with elevated quality standards.</p>
+    </div>
+    <div class="highlight-card fade-in">
+      <div class="highlight-icon">🤝</div>
+      <h3 class="t t-it">Disponibile per collaborazioni</h3>
+      <h3 class="t t-en">Open to Collaborations</h3>
+      <p class="t t-it">Operativo come freelance P.IVA, aperto a nuove collaborazioni. Senior expertise con massima flessibilità operativa.</p>
+      <p class="t t-en">Operating as a freelance consultant, open to new collaborations. Senior expertise with maximum operational flexibility.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label t t-it">Formazione &amp; Certificazioni</div>
+  <div class="section-label t t-en">Education &amp; Certifications</div>
+  <div class="cert-list fade-in">
+    <div class="cert-item">
+      <div><div class="cert-name">SI Architect Certification</div><div class="cert-issuer">MongoDB</div></div>
+      <div class="cert-year">2025</div>
+    </div>
+    <div class="cert-item">
+      <div><div class="cert-name">SI Associate Certification</div><div class="cert-issuer">MongoDB</div></div>
+      <div class="cert-year">2025</div>
+    </div>
+    <div class="cert-item">
+      <div><div class="cert-name">Foundations of Project Management</div><div class="cert-issuer">Google</div></div>
+      <div class="cert-year">2024</div>
+    </div>
+    <div class="cert-item">
+      <div><div class="cert-name">Scrum Fundamentals Certified</div><div class="cert-issuer">SCRUMstudy</div></div>
+      <div class="cert-year">2021</div>
+    </div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name t t-it">Corso in Tecnologie J2EE (400 ore)</div>
+        <div class="cert-name t t-en">J2EE Technologies Course (400 hours)</div>
+        <div class="cert-issuer">Learning by doing</div>
+      </div>
+      <div class="cert-year">2015 — 2016</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts">
+  <div class="section-label t t-it">Contatti</div>
+  <div class="section-label t t-en">Contacts</div>
+  <div class="contact-grid fade-in">
+    <div class="contact-item">
+      <h3>Email</h3>
+      <a href="mailto:and.longo94@gmail.com?subject=Collaborazione%20-%20Andrea%20Longo">and.longo94@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <h3 class="t t-it">Telefono</h3>
+      <h3 class="t t-en">Phone</h3>
+      <a href="tel:+393476087010">(+39) 347 608 7010</a>
+    </div>
+    <div class="contact-item">
+      <h3>LinkedIn</h3>
+      <a href="https://www.linkedin.com/in/andrea-longo-b4b895118" target="_blank" rel="noopener noreferrer">linkedin.com/in/andrea-longo</a>
+    </div>
+    <div class="contact-item">
+      <h3 class="t t-it">Disponibilità</h3>
+      <h3 class="t t-en">Availability</h3>
+      <p>Freelance · P.IVA</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="t t-it inline">© 2026 Andrea Longo — Senior Java Developer &nbsp;·&nbsp; Ultimo aggiornamento: 2026</span>
+  <span class="t t-en inline">© 2026 Andrea Longo — Senior Java Developer &nbsp;·&nbsp; Last updated: 2026</span>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.documentElement.lang = lang;
+    document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.querySelectorAll('[data-it]').forEach(el => {
+      el.textContent = lang === 'it' ? el.dataset.it : el.dataset.en;
+    });
+  }
+
+  // Fade in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? '#e8e8e8' : ''; });
+  });
+</script>
+
+</body>
+</html>
