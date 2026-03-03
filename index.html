@@ -58,7 +58,12 @@
     }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     .hero-subtitle { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 40px; margin-top: 16px; }
-    .hero-bio { max-width: 560px; font-size: 16px; color: #999; line-height: 1.8; margin-bottom: 48px; }
+    .hero-bio { max-width: 560px; font-size: 16px; color: #999; line-height: 1.8; margin-bottom: 24px; }
+
+    /* Sector tags */
+    .hero-sectors { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; max-width: 600px; }
+    .hero-sectors-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; width: 100%; margin-bottom: 4px; }
+
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; cursor: pointer; border: none; }
@@ -139,6 +144,8 @@
     .lang-en .t-en.inline { display: inline; }
     .lang-it .availability.t-it { display: inline-flex; }
     .lang-en .availability.t-en { display: inline-flex; }
+    .lang-it .hero-sectors.t-it { display: flex; }
+    .lang-en .hero-sectors.t-en { display: flex; }
 
     @media (max-width: 640px) {
       nav { padding: 0 20px; }
@@ -188,8 +195,29 @@
     <span class="name-last">Longo</span>
   </h1>
   <p class="hero-subtitle">Java · Spring Boot · Angular</p>
-  <p class="hero-bio t t-it">Sviluppatore backend e frontend con quasi 10 anni di esperienza su progetti enterprise, specializzato nell'integrazione di sistemi. Operativo come freelance (P.IVA), disponibile per nuove collaborazioni.</p>
-  <p class="hero-bio t t-en">Backend and frontend developer with nearly 10 years of enterprise experience, specialized in system integration. Operating as a freelance consultant (P.IVA), open to new collaborations.</p>
+  <p class="hero-bio t t-it">Sviluppatore backend e frontend con quasi 10 anni di esperienza su progetti enterprise, specializzato nell'integrazione di sistemi. Ho lavorato in settori ad alta complessità come healthcare, financial services, gaming &amp; betting e pubblica amministrazione, collaborando con realtà come Luxottica, CRIF e Lottomatica. Operativo come freelance (P.IVA), disponibile per nuove collaborazioni.</p>
+  <p class="hero-bio t t-en">Backend and frontend developer with nearly 10 years of enterprise experience, specialized in system integration. I have worked across high-complexity sectors including healthcare, financial services, gaming &amp; betting and public administration, with clients such as Luxottica, CRIF and Lottomatica. Operating as a freelance consultant (P.IVA), open to new collaborations.</p>
+
+  <!-- SECTOR TAGS IT -->
+  <div class="hero-sectors t t-it">
+    <span class="hero-sectors-label">Settori</span>
+    <span class="tag highlight">Healthcare</span>
+    <span class="tag highlight">Financial Services &amp; FinTech</span>
+    <span class="tag highlight">Gaming &amp; Betting</span>
+    <span class="tag highlight">Retail &amp; E-commerce</span>
+    <span class="tag highlight">Pubblica Amministrazione</span>
+  </div>
+
+  <!-- SECTOR TAGS EN -->
+  <div class="hero-sectors t t-en">
+    <span class="hero-sectors-label">Sectors</span>
+    <span class="tag highlight">Healthcare</span>
+    <span class="tag highlight">Financial Services &amp; FinTech</span>
+    <span class="tag highlight">Gaming &amp; Betting</span>
+    <span class="tag highlight">Retail &amp; E-commerce</span>
+    <span class="tag highlight">Public Administration</span>
+  </div>
+
   <div class="hero-actions">
     <a href="andrea-longo.pdf" download class="btn btn-primary">
       <span class="t t-it inline">↓ Scarica CV</span>
@@ -461,7 +489,6 @@
       </div>
       <div class="cert-year">2015 — 2016</div>
     </div>
-
   </div>
 </section>
 
@@ -472,7 +499,7 @@
   <div class="contact-grid fade-in">
     <div class="contact-item">
       <h3>Email</h3>
-      <a href="mailto:and.longo94@gmail.com?subject=Collaborazione%20-%20Andrea%20Longo">and.longo94@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#9dfcf3f9b3f1f2f3faf2a4a9ddfaf0fcf4f1b3fef2f0a2eee8fff7f8fee9a0def2f1f1fcfff2effce7f4f2f3f8b8afadb0b8afaddcf3f9eff8fcb8afadd1f2f3faf2"><span class="__cf_email__" data-cfemail="a7c6c9c389cbc8c9c0c89e93e7c0cac6cecb89c4c8ca">[email&#160;protected]</span></a>
     </div>
     <div class="contact-item">
       <h3 class="t t-it">Telefono</h3>
@@ -496,7 +523,7 @@
   <span class="t t-en inline">© 2026 Andrea Longo — Senior Java Developer &nbsp;·&nbsp; Last updated: 2026</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function setLang(lang) {
     document.body.className = 'lang-' + lang;
     document.documentElement.lang = lang;
@@ -516,12 +543,4 @@
   // Active nav link
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? '#e8e8e8' : ''; });
-  });
-</script>
-
-</body>
-</html>
+  wi
