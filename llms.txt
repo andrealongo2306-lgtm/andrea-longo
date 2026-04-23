@@ -1,0 +1,45 @@
+# Andrea Longo
+
+> Senior Java Developer e consulente freelance con quasi 10 anni di esperienza su sistemi enterprise in Italia.
+
+Andrea Longo è un backend e frontend developer freelance (P.IVA) specializzato in Java, Spring Boot e integrazione di sistemi. Ha lavorato su progetti ad alta complessità per clienti enterprise come Luxottica (piattaforma prenotazioni per 2.000+ cliniche), CRIF (open banking), Almaviva (SAP Fiori) e Lottomatica (gaming & lottery). Attualmente collabora con LIS Holding sul sistema "Web Console GLS".
+
+## Competenze principali
+
+- **Backend**: Java 1.8 / 21, Spring Boot, Spring Security, Spring Batch, JPA/Hibernate, Microservices, REST, SOAP, ActiveMQ, EJB 3.1
+- **Frontend**: Angular 8/9, JavaScript, TypeScript, jQuery, HTML5/CSS3, Bootstrap, SASS
+- **Database**: MongoDB, Oracle DB, MySQL, PostgreSQL, SQL Server
+- **DevOps & Tools**: GIT, Maven, Docker, Jenkins, Ansible, Kibana, GlassFish, Tomcat, JBoss
+- **Testing**: JUnit, Mockito, Selenium, JMeter
+
+## Settori di esperienza
+
+Healthcare · Financial Services & FinTech · Gaming & Betting · Retail & E-commerce · Pubblica Amministrazione
+
+## Certificazioni
+
+- MongoDB SI Architect Certification — MongoDB (2025)
+- MongoDB SI Associate Certification — MongoDB (2025)
+- Foundations of Project Management — Google (2024)
+- Scrum Fundamentals Certified — SCRUMstudy (2021)
+
+## Esperienza professionale
+
+- **11/2023 — Attuale**: Backend & Frontend Developer @ LIS Holding (Freelance) — Spring Boot, Angular 8, Oracle DB, Ansible, ActiveMQ
+- **06/2021 — 12/2025**: Software Developer @ Luxottica (Freelance) — Spring Boot, jQuery, MongoDB, MySQL, Jenkins
+- **04/2020 — 02/2021**: Backend & Frontend Developer @ Besidetech/CRIF — Angular 9, Spring Batch, JPA
+- **09/2019 — 03/2020**: Software Developer @ Besidetech/Nesea — Spring Boot, integrazione sistemi lottery
+- **04/2019 — 09/2019**: Software Developer @ Besidetech/Ringmaster — Betting & Gaming, Spring Batch, Quartz
+- **05/2018 — 04/2019**: Backend & Frontend Developer @ Netcom Group/Almaviva — SAP Fiori, JSP, CoffeeScript
+- **03/2017 — 04/2018**: IT Consultant @ CSP/Tecnositaf — Selenium, Docker, Jenkins, EJB 3.1, PostgreSQL
+
+## Disponibilità
+
+Disponibile come freelance con P.IVA per nuove collaborazioni su progetti enterprise, in Italia e da remoto.
+
+## Contatti
+
+- Email: and.longo94@gmail.com
+- LinkedIn: https://www.linkedin.com/in/andrea-longo-b4b895118
+- Sito: https://andrea-longo.it/
+- CV (PDF): https://andrea-longo.it/andrea-longo.pdf
